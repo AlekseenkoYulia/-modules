@@ -11,14 +11,20 @@ import java.util.ArrayList;
 
 @Path("/rest")
 public class PetShopRestService {
-    //Shop petShop = new Shop();
 
     @GET
-    @Path("/search/{description}")
-    public Response findProduct(@PathParam("description") String description){
+    @Path("/test")
+    public Response test(){
         Shop petShop = new Shop();
-        ArrayList<Product> select = petShop.findProduct(description);
-
-        return Response.status(200).entity(select).build();
+        return Response.status(200).entity(petShop.test()).build();
     }
+
+//    @GET
+//    @Path("/search/{description}")
+//    public Response findProduct(@PathParam("description") String description){
+//        Shop petShop = new Shop();
+//        ArrayList<Product> select = petShop.findProduct(description);
+//
+//        return Response.status(200).entity(select).build();
+//    }
 }

@@ -11,6 +11,10 @@ public class Shop {
         initProducts();
     }
 
+    public String test(){
+        return "Test success";
+    }
+
     public ArrayList<Product> findProduct(String description) {
         ArrayList<Product> select = new ArrayList<Product>();
 
