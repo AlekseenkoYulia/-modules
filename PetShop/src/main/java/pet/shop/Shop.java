@@ -2,7 +2,6 @@ package pet.shop;
 
 import pet.shop.Exceptions.ProductNotFoundException;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Shop {
@@ -21,7 +20,7 @@ public class Shop {
         ArrayList<Product> select = new ArrayList<Product>();
 
         for (Product p : products) {
-            if (p.description.contains(description)) {
+            if (p.description.toLowerCase().contains(description.toLowerCase())) {
                 select.add(p);
             }
         }
@@ -40,29 +39,33 @@ public class Shop {
         throw new ProductNotFoundException();
     }
 
-    public String addProduct(String description, String id, BigDecimal rub, BigDecimal usd) {
+    public String addProduct(String description, String id, Double rub, Double usd) {
+        System.out.println("rub: " + rub);
+        System.out.println("usd: " + usd);
         if (rub == null && usd == null) {
             return "You should add price";
         }
         if (rub == null) {
-            rub = usd.multiply(new BigDecimal("30.00"));
+            rub = usd * 30;
+            System.out.println("rub: " + rub);
         }
 
         if (usd == null) {
-            usd = rub.divide(new BigDecimal("30.00"));
+            usd = rub / 30;
+            System.out.println("usd: " + usd);
         }
 
-        if (usd.multiply(new BigDecimal("30.00")).compareTo(rub) != 0) {
+        if (usd*30 != rub) {
             return "Cannot add product. RUB price is not equals to USD price";
         }
         if (id.length() < 8 || id.length() > 10) {
             return "Cannot add product. Product ID must be 8-10 digits";
         }
 
-        try {
-            findProductById(id);
-            return "Product is already in PetShop";
-        } catch (ProductNotFoundException ex) {
+        for (Product p : products) {
+            if (p.id.equals(id) || p.description.toLowerCase().equals(description.toLowerCase())) {
+                return "Product is already in PetShop";
+            }
         }
 
         Product product = new Product(description, id, rub, usd);
@@ -89,10 +92,10 @@ public class Shop {
 
 
     public void initProducts() {
-        addProduct("JustFoodForDogs Fresh-on-the-Go Beef and Russet Potato Dog Food", "00000000", new BigDecimal("165"), new BigDecimal("5.5"));
-        addProduct("JustFoodForDogs Fresh-on-the-Go Chicken and White Rice Dog Food", "00000001", new BigDecimal("150"), new BigDecimal("5"));
-        addProduct("Kiwi Kitchens Super Food Booster Fish Recipe for Cats & Dogs", "00000002", new BigDecimal("390"), new BigDecimal("13"));
-        addProduct("Kiwi Kitchens Lamb Liver Freeze Dried Dog Treats", "00000003", new BigDecimal("600"), new BigDecimal("20"));
+        addProduct("JustFoodForDogs Fresh-on-the-Go Beef and Russet Potato Dog Food", "00000000", new Double("165"), new Double("5.5"));
+        addProduct("JustFoodForDogs Fresh-on-the-Go Chicken and White Rice Dog Food", "00000001", new Double("150"), new Double("5"));
+        addProduct("Kiwi Kitchens Super Food Booster Fish Recipe for Cats & Dogs", "00000002", new Double("390"), new Double("13"));
+        addProduct("Kiwi Kitchens Lamb Liver Freeze Dried Dog Treats", "00000003", new Double("600"), new Double("20"));
     }
 
     @Override

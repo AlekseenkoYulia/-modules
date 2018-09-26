@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 public class Product {
     String description;
     String id;
-    BigDecimal priceRUB;
-    BigDecimal priceUSD;
+    Double priceRUB;
+    Double priceUSD;
     boolean inStock;
 
     public void setInStock(boolean inStock) {
@@ -27,12 +27,12 @@ public class Product {
     }
 
     @XmlElement
-    public BigDecimal getPriceRUB() {
+    public Double getPriceRUB() {
         return priceRUB;
     }
 
     @XmlElement
-    public BigDecimal getPriceUSD() {
+    public Double getPriceUSD() {
         return priceUSD;
     }
 
@@ -41,7 +41,7 @@ public class Product {
         return inStock;
     }
 
-    public Product(String d, String id, BigDecimal rub, BigDecimal usd) {
+    public Product(String d, String id, Double rub, Double usd) {
         description = d;
         this.id = id;
         priceRUB = rub;

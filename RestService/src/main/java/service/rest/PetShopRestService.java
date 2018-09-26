@@ -7,7 +7,6 @@ import pet.shop.Shop;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 @Path("/shop")
@@ -19,11 +18,6 @@ public class PetShopRestService {
         return Response.status(200).entity("Welcome to Pet Shop!").build();
     }
 
-    @GET
-    @Path("/test")
-    public Response test() {
-        return Response.status(200).entity("rub ok").build();
-    }
 
     @GET
     @Path("/search/{description}")
@@ -33,7 +27,7 @@ public class PetShopRestService {
             ArrayList<Product> select = petShop.findProductByDescription(description);
             return Response.status(200).entity(select).build();
         } catch (ProductNotFoundException e) {
-            return Response.status(200).entity("Product not found").build();
+            return Response.status(404).entity("Product not found").build();
         }
     }
 
@@ -45,20 +39,35 @@ public class PetShopRestService {
             Product select = petShop.findProductById(id);
             return Response.status(200).entity(select).build();
         } catch (ProductNotFoundException e) {
-            return Response.status(200).entity("Product not found").build();
+            return Response.status(404).entity("Product not found").build();
         }
     }
 
-    @GET
+    @POST
     @Path("/add/{description}/{id}")
-    public Response addProductByRubUsd(
+    public Response addProduct(
             @PathParam("description") String description,
             @PathParam("id") String id,
-            @MatrixParam("rub") BigDecimal rub,
-            @MatrixParam("usd") BigDecimal usd) {
+            @MatrixParam("rub") Double rub,
+            @MatrixParam("usd") Double usd) {
 
         String status = petShop.addProduct(description, id, rub, usd);
         return Response.status(200).entity(status).build();
+    }
+
+    @POST
+    @Path("/add")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addProducts(Product[] products){
+        StringBuilder responseMsg = new StringBuilder();
+        for (Product p: products){
+            String status = petShop.addProduct(p.getDescription(), p.getId(), p.getPriceRUB(), p.getPriceUSD());
+            if (!status.equals("Add product: success!")){
+                responseMsg.append("Can't add product: " + p + "\n" + status +"\n");
+            }
+        }
+
+        return Response.status(200).entity(responseMsg.append("Operation complete.")).build();
     }
 
     @GET
