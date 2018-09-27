@@ -5,6 +5,6 @@
     <endpoint
             name="PetShop"
             implementation="service.soap.PetShopSoapService"
-            url-pattern="/soap"
-    />
+            url-pattern="/soap">
+    </endpoint>
 </endpoints>

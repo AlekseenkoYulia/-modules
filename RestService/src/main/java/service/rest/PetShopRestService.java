@@ -22,12 +22,12 @@ public class PetShopRestService {
     @GET
     @Path("/search/{description}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response findProductByDescription(@PathParam("description") String description) {
+    public Response findProductsByDescription(@PathParam("description") String description) {
         try {
-            ArrayList<Product> select = petShop.findProductByDescription(description);
-            return Response.status(200).entity(select).build();
+            ArrayList<Product> foundProducts = petShop.findProductsByDescription(description);
+            return Response.status(200).entity(foundProducts).build();
         } catch (ProductNotFoundException e) {
-            return Response.status(404).entity("Product not found").build();
+            return Response.status(404).entity("Products not found").build();
         }
     }
 
@@ -36,23 +36,11 @@ public class PetShopRestService {
     @Produces({MediaType.APPLICATION_JSON})
     public Response findProductById(@PathParam("id") String id) {
         try {
-            Product select = petShop.findProductById(id);
-            return Response.status(200).entity(select).build();
+            Product foundProduct = petShop.findProductById(id);
+            return Response.status(200).entity(foundProduct).build();
         } catch (ProductNotFoundException e) {
             return Response.status(404).entity("Product not found").build();
         }
-    }
-
-    @POST
-    @Path("/add/{description}/{id}")
-    public Response addProduct(
-            @PathParam("description") String description,
-            @PathParam("id") String id,
-            @MatrixParam("rub") Double rub,
-            @MatrixParam("usd") Double usd) {
-
-        String status = petShop.addProduct(description, id, rub, usd);
-        return Response.status(200).entity(status).build();
     }
 
     @POST
@@ -61,19 +49,27 @@ public class PetShopRestService {
     public Response addProducts(Product[] products){
         StringBuilder responseMsg = new StringBuilder();
         for (Product p: products){
-            String status = petShop.addProduct(p.getDescription(), p.getId(), p.getPriceRUB(), p.getPriceUSD());
-            if (!status.equals("Add product: success!")){
-                responseMsg.append("Can't add product: " + p + "\n" + status +"\n");
+            String status = petShop.addProduct(p);
+            if (status.equals("Add product: success!")){
+                responseMsg.append("Add product: " + p + " - Success!" + "\n");
+            } else {
+                responseMsg.append("Can't add product: " + p + " - " + status + "\n");
             }
         }
-
-        return Response.status(200).entity(responseMsg.append("Operation complete.")).build();
+        return Response.status(200).entity(responseMsg.append("Operation complete.").toString()).build();
     }
 
     @GET
     @Path("/buy/{id: \\d+}")
-    public Response buyProduct(@PathParam("id") String id) {
-        String status = petShop.buyProduct(id);
+    public Response buyProductById(@PathParam("id") String id) {
+        String status = petShop.buyProductById(id);
+        return Response.status(200).entity(status).build();
+    }
+
+    @GET
+    @Path("/buy/{description}")
+    public Response buyProductByDescription(@PathParam("description") String description) {
+        String status = petShop.buyProductByDescription(description);
         return Response.status(200).entity(status).build();
     }
 }

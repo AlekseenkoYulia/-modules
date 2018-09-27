@@ -1,52 +1,68 @@
 package pet.shop;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.math.BigDecimal;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-@XmlRootElement(name = "product")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Product {
     String description;
     String id;
     Double priceRUB;
     Double priceUSD;
-    boolean inStock;
+    Boolean inStock = true;
 
-    public void setInStock(boolean inStock) {
-        this.inStock = inStock;
-    }
-
-    @XmlElement
     public String getDescription() {
         return description;
     }
 
-    @XmlElement
     public String getId() {
         return id;
     }
 
-    @XmlElement
     public Double getPriceRUB() {
         return priceRUB;
     }
 
-    @XmlElement
     public Double getPriceUSD() {
         return priceUSD;
     }
 
-    @XmlElement
-    public boolean isInStock() {
+    public Boolean isInStock() {
         return inStock;
     }
 
-    public Product(String d, String id, Double rub, Double usd) {
-        description = d;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setId(String id) {
         this.id = id;
-        priceRUB = rub;
-        priceUSD = usd;
-        inStock = true;
+    }
+
+    public void setPriceRUB(Double priceRUB) {
+        this.priceRUB = priceRUB;
+    }
+
+    public void setPriceUSD(Double priceUSD) {
+        this.priceUSD = priceUSD;
+    }
+
+    public void setInStock(Boolean inStock) {
+
+        if(inStock == null){
+            this.inStock = true;
+        } else {
+            this.inStock = inStock;
+        }
+    }
+
+    public Product(){
+    }
+
+    public Product(String description, String id, Double priceRUB, Double priceUSD) {
+        this.description = description;
+        this.id = id;
+        this.priceRUB = priceRUB;
+        this.priceUSD = priceUSD;
     }
 
     @Override

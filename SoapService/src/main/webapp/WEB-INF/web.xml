@@ -20,5 +20,4 @@
         <url-pattern>/soap</url-pattern>
     </servlet-mapping>
 
-
 </web-app>

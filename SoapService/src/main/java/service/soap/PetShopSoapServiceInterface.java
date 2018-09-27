@@ -10,17 +10,20 @@ public interface PetShopSoapServiceInterface {
     static Shop petShop = new Shop();
 
     @WebMethod
-    public String welcome();
+    String welcome();
 
     @WebMethod
-    public String findProductByDescription(String description);
+    String findProductsByDescription(String description);
 
     @WebMethod
-    public String findProductById(String id);
+    String findProductById(String id);
 
     @WebMethod
-    public String addProduct(String description, String id, Double rub, Double usd);
+    String addProduct(String description, String id, Double rub, Double usd);
 
     @WebMethod
-    public String buyProduct(String id);
+    String buyProductById(String id);
+
+    @WebMethod
+    String buyProductByDescription(String description);
 }

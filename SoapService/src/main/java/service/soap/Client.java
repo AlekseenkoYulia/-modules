@@ -18,10 +18,10 @@ public class Client {
         PetShopSoapServiceInterface s = service.getPort(PetShopSoapServiceInterface.class);
 
         System.out.println(s.welcome());
-        System.out.println(s.findProductByDescription("kiwi"));
+        System.out.println(s.findProductsByDescription("kiwi"));
         System.out.println(s.addProduct("test2", "00000008", null,(double)1));
-        System.out.println(s.findProductByDescription("test2"));
-        System.out.println(s.buyProduct("00000008"));
-        System.out.println(s.findProductByDescription("test2"));
+        System.out.println(s.findProductsByDescription("test2"));
+        System.out.println(s.buyProductById("00000008"));
+        System.out.println(s.findProductsByDescription("test2"));
     }
 }
