@@ -13,15 +13,15 @@ public class Shop {
     }
 
     public ArrayList<Product> findProductsByDescription(String description) throws ProductNotFoundException {
-        ArrayList<Product> foundProducts = new ArrayList<Product>();
+        ArrayList<Product> products = new ArrayList<Product>();
 
         for (Product p : products) {
             if (p.description.toLowerCase().contains(description.toLowerCase())) {
-                foundProducts.add(p);
+                products.add(p);
             }
         }
-        if (foundProducts.size() > 0) {
-            return foundProducts;
+        if (products.size() > 0) {
+            return products;
         }
         throw new ProductNotFoundException();
     }

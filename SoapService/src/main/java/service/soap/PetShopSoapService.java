@@ -17,8 +17,8 @@ public class PetShopSoapService implements PetShopSoapServiceInterface {
     @Override
     public String findProductsByDescription(String description) {
         try {
-            ArrayList<Product> select = petShop.findProductsByDescription(description);
-            return select.toString();
+            ArrayList<Product> products = petShop.findProductsByDescription(description);
+            return products.toString();
         } catch (ProductNotFoundException e) {
             return  "Product not found";
         }
@@ -27,8 +27,8 @@ public class PetShopSoapService implements PetShopSoapServiceInterface {
     @Override
     public String findProductById(String id) {
         try {
-            Product select = petShop.findProductById(id);
-            return select.toString();
+            Product product = petShop.findProductById(id);
+            return product.toString();
         } catch (ProductNotFoundException e) {
             return "Product not found";
         }

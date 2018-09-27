@@ -24,8 +24,8 @@ public class PetShopRestService {
     @Produces({MediaType.APPLICATION_JSON})
     public Response findProductsByDescription(@PathParam("description") String description) {
         try {
-            ArrayList<Product> foundProducts = petShop.findProductsByDescription(description);
-            return Response.status(200).entity(foundProducts).build();
+            ArrayList<Product> products = petShop.findProductsByDescription(description);
+            return Response.status(200).entity(products).build();
         } catch (ProductNotFoundException e) {
             return Response.status(404).entity("Products not found").build();
         }
@@ -36,8 +36,8 @@ public class PetShopRestService {
     @Produces({MediaType.APPLICATION_JSON})
     public Response findProductById(@PathParam("id") String id) {
         try {
-            Product foundProduct = petShop.findProductById(id);
-            return Response.status(200).entity(foundProduct).build();
+            Product product = petShop.findProductById(id);
+            return Response.status(200).entity(product).build();
         } catch (ProductNotFoundException e) {
             return Response.status(404).entity("Product not found").build();
         }
