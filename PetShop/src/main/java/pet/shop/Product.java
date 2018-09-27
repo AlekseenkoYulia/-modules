@@ -48,14 +48,14 @@ public class Product {
 
     public void setInStock(Boolean inStock) {
 
-        if(inStock == null){
+        if (inStock == null) {
             this.inStock = true;
         } else {
             this.inStock = inStock;
         }
     }
 
-    public Product(){
+    public Product() {
     }
 
     public Product(String description, String id, Double priceRUB, Double priceUSD) {

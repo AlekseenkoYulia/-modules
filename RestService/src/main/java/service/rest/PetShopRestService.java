@@ -46,11 +46,11 @@ public class PetShopRestService {
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addProducts(Product[] products){
+    public Response addProducts(Product[] products) {
         StringBuilder responseMsg = new StringBuilder();
-        for (Product p: products){
+        for (Product p : products) {
             String status = petShop.addProduct(p);
-            if (status.equals("Add product: success!")){
+            if (status.equals("Add product: success!")) {
                 responseMsg.append("Add product: " + p + " - Success!" + "\n");
             } else {
                 responseMsg.append("Can't add product: " + p + " - " + status + "\n");

@@ -13,15 +13,15 @@ public class Shop {
     }
 
     public ArrayList<Product> findProductsByDescription(String description) throws ProductNotFoundException {
-        ArrayList<Product> products = new ArrayList<Product>();
+        ArrayList<Product> foundProducts = new ArrayList<Product>();
 
         for (Product p : products) {
             if (p.description.toLowerCase().contains(description.toLowerCase())) {
-                products.add(p);
+                foundProducts.add(p);
             }
         }
-        if (products.size() > 0) {
-            return products;
+        if (foundProducts.size() > 0) {
+            return foundProducts;
         }
         throw new ProductNotFoundException();
     }
@@ -47,7 +47,7 @@ public class Shop {
             usd = rub / 30;
         }
 
-        if (usd*30 != rub) {
+        if (usd * 30 != rub) {
             return "Cannot add product. RUB price is not equals to USD price";
         }
         if (id.length() < 8 || id.length() > 10) {
@@ -65,7 +65,7 @@ public class Shop {
         return "Add product: success!";
     }
 
-    public String addProduct(Product p){
+    public String addProduct(Product p) {
         return addProduct(p.getDescription(), p.getId(), p.getPriceRUB(), p.getPriceUSD());
     }
 
@@ -87,7 +87,7 @@ public class Shop {
         try {
             ArrayList<Product> products = findProductsByDescription(description);
 
-            if(products.size() > 1){
+            if (products.size() > 1) {
                 return "We find several products for your request. Please refine request";
             }
 
